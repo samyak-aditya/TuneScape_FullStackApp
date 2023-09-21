@@ -1,5 +1,7 @@
+// Import Axios library
 import axios from 'axios';
 
+// Define a function to fetch album data
 const fetchAlbumData = async () => {
   const options = {
     method: 'GET',
@@ -15,7 +17,7 @@ const fetchAlbumData = async () => {
 
   try {
     const response = await axios.request(options);
-    console.log(response.data);
+    
     console.log("---|-------|------|-------|--------|--------|-----");
     return response.data; // Return the fetched data
   } catch (error) {
@@ -25,3 +27,4 @@ const fetchAlbumData = async () => {
 };
 
 export default fetchAlbumData;
+
