@@ -13,7 +13,36 @@ export const spotifyCoreApi = createApi({
         };
       },
     }),
+    getGenre: builder.query({
+      query: () => {
+        return {
+          url: '/genre',
+        };
+      },
+  }),
+  getPodcast: builder.query({
+    query: () => {
+      return {
+        url: '/podcast',
+      };
+    },
+}),
+getArtist: builder.query({
+  query: () => {
+    return {
+      url: '/artists',
+    };
+  },
+}),
+getTracks: builder.query({
+  query: () => {
+    return {
+      url: '/tracks',
+    };
+  },
+}),
+  
   }),
 });
 
-export const { useGetAlbumsQuery } = spotifyCoreApi;
+export const { useGetAlbumsQuery,useGetGenreQuery, useGetPodcastQuery, useGetArtistQuery, useGetTracksQuery } = spotifyCoreApi;

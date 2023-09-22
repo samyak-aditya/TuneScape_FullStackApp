@@ -4,6 +4,7 @@ import fetchTrackData  from '../spotifyCore/fetchTrackData.js';
 import  fetchArtistData  from '../spotifyCore/fetchArtistData.js';
 import  fetchPlaylistData from '../spotifyCore/fetchPlaylistData.js';
 import fetchGenreData from '../spotifyCore/fetchGenreData.js';
+import fetchPodcastData from '../spotifyCore/fetchPodcastData.js';
 
 const router = express.Router();
 
@@ -63,6 +64,20 @@ router.get('/genre', async (req, res, next) => {
     console.log(genreData);
     console.log("#################");
     res.json(genreData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.get('/podcast', async (req, res, next) => {
+  try {
+    const podcastData = await fetchPodcastData();
+    res.json(podcastData);
+    console.log("$$$$$$$$$$$$$$$$$$$");
+    console.log(podcastData);
+    console.log("$$$$$$$$$$$$$$$$$$$");
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
