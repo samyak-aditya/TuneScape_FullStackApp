@@ -6,10 +6,10 @@ export const spotifyCoreApi = createApi({
     baseUrl: 'http://localhost:5000', // Update the base URL to localhost:5000
   }),
   endpoints: (builder) => ({
-    getAlbums: builder.query({
+    getDiscover: builder.query({
       query: () => {
         return {
-          url: '/albums',
+          url: '/discover',
         };
       },
     }),
@@ -45,4 +45,4 @@ getTracks: builder.query({
   }),
 });
 
-export const { useGetAlbumsQuery,useGetGenreQuery, useGetPodcastQuery, useGetArtistQuery, useGetTracksQuery } = spotifyCoreApi;
+export const { useGetDiscoverQuery,useGetGenreQuery, useGetPodcastQuery, useGetArtistQuery, useGetTracksQuery } = spotifyCoreApi;

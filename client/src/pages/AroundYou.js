@@ -24,6 +24,7 @@ const CountryTracks = () => {
             isPlaying={isPlaying}
             activeSong={activeSong}
             image = {data.tracks[0].album.images[0]}
+            artist = {data.tracks[0].album.artists[i]}
           />
         ))}
       </div>

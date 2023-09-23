@@ -1,12 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PlayPause from './PlayPause';
+import { playPause, setActiveSong } from '../redux/features/playerSlice';
+import { useDispatch } from 'react-redux';
 
-const SongCard = ({ song, image,key }) => {
+
+  
+
+
+const SongCard = ({ song, image, isPlaying,activeSong, artist, i, data }) => {
+
+  const dispatch = useDispatch();
+
+  const handlePauseClick = () => {
+    dispatch(playPause(false));
+  };
+
+  const handlePlayClick = () => {
+    dispatch(setActiveSong({ song, data, i }));
+    dispatch(playPause(true));
+  };
+
   return (
     <div className="flex flex-col w-[250px] p-6 mb-6 ml-6 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
       <div className="relative w-full h-56 group">
-        <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${image ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
-          
+      <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.name === song.name ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
+          <PlayPause
+            isPlaying={isPlaying}
+            activeSong={activeSong}
+            song={song}
+            handlePause={handlePauseClick}
+            handlePlay={handlePlayClick}
+          />
         </div>
         <img alt="song_img" src={image ? image.url : ''} className="w-full h-full opacity-100 rounded-lg" />
       </div>
@@ -16,9 +41,10 @@ const SongCard = ({ song, image,key }) => {
           <Link to={`/songs/`}>
             {song.name}
           </Link>
+          
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
-          {/* Add your song subtitle or artist information here */}
+        {artist.name}
         </p>
       </div>
     </div>

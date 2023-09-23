@@ -1,5 +1,5 @@
 import express from 'express';
-import  fetchAlbumData  from '../spotifyCore/fetchAlbumData.js';
+import fetchDiscoverData from '../spotifyCore/fetchDiscoverData.js';
 import fetchTrackData  from '../spotifyCore/fetchTrackData.js';
 import  fetchArtistData  from '../spotifyCore/fetchArtistData.js';
 import  fetchPlaylistData from '../spotifyCore/fetchPlaylistData.js';
@@ -8,11 +8,11 @@ import fetchPodcastData from '../spotifyCore/fetchPodcastData.js';
 
 const router = express.Router();
 
-router.get('/albums', async (req, res, next) => {
+router.get('/discover', async (req, res, next) => {
   try {
-    const albumData = await fetchAlbumData();
-    console.log(albumData);
-    res.json(albumData);
+    const discoverData = await fetchDiscoverData();
+    console.log(discoverData);
+    res.json (discoverData)
   } catch (error) {
     next(error);
   }

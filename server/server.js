@@ -1,7 +1,7 @@
 // Import required packages
 import express  from 'express';
 import bodyParser from 'body-parser';
-import fetchAlbumData from './spotifyCore/fetchAlbumData.js';
+
 import cors from 'cors'
 import router from './routes/routes.js';
 
