@@ -41,8 +41,17 @@ getTracks: builder.query({
     };
   },
 }),
+getPlaylist: builder.query({
+  query: () => {
+    return {
+      url: '/playlists',
+    };
+  },
+}),
+  
   
   }),
+
 });
 
-export const { useGetDiscoverQuery,useGetGenreQuery, useGetPodcastQuery, useGetArtistQuery, useGetTracksQuery } = spotifyCoreApi;
+export const { useGetDiscoverQuery,useGetGenreQuery, useGetPodcastQuery, useGetArtistQuery, useGetTracksQuery, useGetPlaylistQuery } = spotifyCoreApi;

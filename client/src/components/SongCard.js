@@ -44,7 +44,7 @@ const SongCard = ({ song, image, isPlaying,activeSong, artist, i, data }) => {
           
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
-        {artist.name}
+        {artist?.name}
         </p>
       </div>
     </div>

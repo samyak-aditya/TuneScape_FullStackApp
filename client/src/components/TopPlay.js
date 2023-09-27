@@ -1,34 +1,37 @@
+// TopPlay.js
+
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode } from 'swiper/modules';
-import PlayPause from './PlayPause';
-import { playPause, setActiveSong } from '../redux/features/playerSlice';
-import { useGetPodcastQuery } from '../redux/services/spotifyCore';
 import 'swiper/css';
 import 'swiper/css/free-mode';
+import PlayPause from './PlayPause';
+import { playPause, setActiveSong } from '../redux/features/playerSlice';
+import { useGetPlaylistQuery } from '../redux/services/spotifyCore';
 
-const TopPodcast = ({ episode, i, isPlaying, activeEpisode, handlePauseClick, handlePlayClick }) => (
-  <div className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${activeEpisode?.name === episode?.name ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
-    <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
+const Track = ({ track, isPlaying, activeTrack, handlePauseClick, handlePlayClick }) => (
+  <div className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${activeTrack?.uri === track?.uri ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
+    <h3 className="font-bold text-base text-white mr-3">{track?.name}</h3>
     <div className="flex-1 flex flex-row justify-between items-center">
-      <img className="w-20 h-20 rounded-lg" src={episode?.coverArt?.sources[0].url} alt={episode?.name} />
+      {track?.album?.images?.length > 0 && (
+        <img className="w-20 h-20 rounded-lg" src={track?.album?.images[0]?.url} alt={track?.name} />
+      )}
       <div className="flex-1 flex flex-col justify-center mx-3">
-        <Link to={`/episodes/${episode.uri}`}>
+        <Link to={`/tracks/${track.uri}`}>
           <p className="text-xl font-bold text-white">
-            {episode?.name}
+            {track?.name} sample
           </p>
         </Link>
         <p className="text-base text-gray-300 mt-1">
-          {episode?.description}
+          {track?.artists?.map((artist) => artist.name).join(', ')}
         </p>
       </div>
     </div>
     <PlayPause
       isPlaying={isPlaying}
-      activeEpisode={activeEpisode}
-      episode={episode}
+      activeTrack={activeTrack}
+      track={track}
       handlePause={handlePauseClick}
       handlePlay={handlePlayClick}
     />
@@ -37,22 +40,23 @@ const TopPodcast = ({ episode, i, isPlaying, activeEpisode, handlePauseClick, ha
 
 const TopPlay = () => {
   const dispatch = useDispatch();
-  const { activeEpisode, isPlaying } = useSelector((state) => state.player);
-  const { data: podcastData } = useGetPodcastQuery();
+  const { activeTrack, isPlaying } = useSelector((state) => state.player);
+  const { data } = useGetPlaylistQuery();
+  console.log("topplay----> ",data);
   const divRef = useRef(null);
 
   useEffect(() => {
     divRef.current.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  const topPodcasts = podcastData?.podcastUnionV2?.items || [];
+  const tracks = data?.data.album?.tracks?.items || [];
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
   };
 
-  const handlePlayClick = (episode, i) => {
-    dispatch(setActiveSong({ episode, data: podcastData, i }));
+  const handlePlayClick = (track, i) => {
+    dispatch(setActiveSong({ track, data, i }));
     dispatch(playPause(true));
   };
 
@@ -60,22 +64,22 @@ const TopPlay = () => {
     <div ref={divRef} className="xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col">
       <div className="w-full flex flex-col">
         <div className="flex flex-row justify-between items-center">
-          <h2 className="text-white font-bold text-2xl">Top Podcast Episodes</h2>
-          <Link to="/top-podcasts">
+          <h2 className="text-white font-bold text-2xl">Playlist Tracks</h2>
+          <Link to="/playlist">
             <p className="text-gray-300 text-base cursor-pointer">See more</p>
           </Link>
         </div>
 
         <div className="mt-4 flex flex-col gap-1">
-          {topPodcasts.map((episode, i) => (
-            <TopPodcast
-              key={episode.uid}
-              episode={episode}
-              i={i}
+          {tracks.map((track, i) => (
+            <Track
+              key={track.uid}
+              track={track}
+              i = {i}
               isPlaying={isPlaying}
-              activeEpisode={activeEpisode}
+              activeTrack={activeTrack}
               handlePauseClick={handlePauseClick}
-              handlePlayClick={() => handlePlayClick(episode, i)}
+              handlePlayClick={() => handlePlayClick(track, i)}
             />
           ))}
         </div>
