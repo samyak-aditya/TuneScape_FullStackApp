@@ -4,11 +4,13 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
-import { useGetPlaylistQuery } from '../redux/services/spotifyCore';
+import { useGetPlaylistQuery, useGetArtistQuery } from '../redux/services/spotifyCore';
+import Loader from './Loader';
 
 const Track = ({ track, isPlaying, activeTrack, handlePauseClick, handlePlayClick }) => (
   <div className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${activeTrack?.uri === track?.uri ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
@@ -38,11 +40,20 @@ const Track = ({ track, isPlaying, activeTrack, handlePauseClick, handlePlayClic
   </div>
 );
 
+// Rest of your imports...
+
 const TopPlay = () => {
   const dispatch = useDispatch();
   const { activeTrack, isPlaying } = useSelector((state) => state.player);
+  const { Adata, isFetching, error } = useGetArtistQuery();
   const { data } = useGetPlaylistQuery();
+  
+  
   console.log("topplay----> ",data);
+
+  
+  console.log("Artists ---->",Adata);
+  
   const divRef = useRef(null);
 
   useEffect(() => {
@@ -75,7 +86,7 @@ const TopPlay = () => {
             <Track
               key={track.uid}
               track={track}
-              i = {i}
+              i={i}
               isPlaying={isPlaying}
               activeTrack={activeTrack}
               handlePauseClick={handlePauseClick}
@@ -84,8 +95,42 @@ const TopPlay = () => {
           ))}
         </div>
       </div>
+
+      <div className="w-full flex flex-col mt-8">
+        <div className="flex flex-row justify-between items-center">
+          <h2 className="text-white font-bold text-2xl">Top Artists</h2>
+          <Link to="/top-artists">
+            <p className="text-gray-300 text-base cursor-pointer">See more</p>
+          </Link>
+        </div>
+
+        <Swiper
+          slidesPerView="auto"
+          spaceBetween={15}
+          freeMode
+          centeredSlides
+          centeredSlidesBounds
+          modules={[FreeMode]}
+          className="mt-4"
+        >
+          {Adata?.artists.map((artist, i) => (
+            <SwiperSlide
+              key={artist?.id}
+              style={{ width: '25%', height: 'auto' }}
+              className="shadow-lg rounded-full animate-slideright"
+              i={i}
+            >
+              <Link to={`/artists/${artist?.id}`}>
+                <img alt={artist.name} src={artist.images[0]?.url} className="rounded-full w-full object-cover" />
+              </Link>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
+
+  
 };
 
 export default TopPlay;
