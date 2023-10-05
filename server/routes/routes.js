@@ -86,4 +86,19 @@ router.get('/podcast', async (req, res, next) => {
   }
 });
 
+router.post('/api/login', (req, res) => {
+  // Access the username and password from the request body
+  const { username, password } = req.body;
+  console.log(username, password);
+  // Perform authentication logic here (e.g., check credentials against a database)
+  // For demonstration purposes, you can create a simple check
+  if (username === 'demo' && password === 'password') {
+    // Authentication successful
+    res.status(200).json({ message: 'Login successful' });
+  } else {
+    // Authentication failed
+    res.status(401).json({ message: 'Login failed' });
+  }
+});
+
 export default router;

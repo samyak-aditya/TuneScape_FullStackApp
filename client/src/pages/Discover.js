@@ -7,7 +7,7 @@ import { useGetDiscoverQuery, useGetGenreQuery } from "../redux/services/spotify
 const Discover = () => {
   const { data, isFetching, error } = useGetDiscoverQuery();
   const genreTitle = 'Pop';
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  
 
   console.log('Discover Data --> ', data);
 

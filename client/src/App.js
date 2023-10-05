@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import { Searchbar, Sidebar, TopPlay } from './components';
 import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts } from './pages';
 import  MusicPlayer from './components/MusicPlayers/MusicPlayer';
+import LoginForm from './pages/signin';
+
 
 
 const App = () => {
@@ -25,6 +27,7 @@ const App = () => {
               <Route path="/artists/:id" element={<ArtistDetails />} />
               <Route path="/songs/:songid" element={<SongDetails />} />
               <Route path="/search/:searchTerm" element={<Search />} />
+              <Route path="/Login" element={<LoginForm />} />
             </Routes>
           </div>
           <div className="xl:sticky relative top-0 h-fit">
