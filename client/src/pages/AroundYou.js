@@ -25,6 +25,7 @@ const CountryTracks = () => {
             activeSong={activeSong}
             image = {data.tracks[0].album.images[0]}
             artist = {data.tracks[0].album.artists[i]}
+            previewUrl={data.tracks[0].preview_url}
           />
         ))}
       </div>

@@ -15,6 +15,7 @@ import Loader from './Loader';
 const Track = ({ track, isPlaying, activeTrack, handlePauseClick, handlePlayClick }) => (
   <div className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${activeTrack?.uri === track?.uri ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
     <h3 className="font-bold text-base text-white mr-3">{track?.name}</h3>
+    
     <div className="flex-1 flex flex-row justify-between items-center">
       {track?.album?.images?.length > 0 && (
         <img className="w-20 h-20 rounded-lg" src={track?.album?.images[0]?.url} alt={track?.name} />

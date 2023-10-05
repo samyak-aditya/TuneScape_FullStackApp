@@ -38,6 +38,7 @@ const TopCharts = () => {
             data={episodes}
             i={i}
             image={episode.entity.data.coverArt.sources[0]}
+            previewUrl={episode.entity.data.audioPreview.url}
           />
         ))}
       </div>

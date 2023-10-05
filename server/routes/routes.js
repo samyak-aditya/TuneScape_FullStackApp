@@ -1,8 +1,8 @@
 import express from 'express';
 import fetchDiscoverData from '../spotifyCore/fetchDiscoverData.js';
-import fetchTrackData  from '../spotifyCore/fetchTrackData.js';
-import  fetchArtistData  from '../spotifyCore/fetchArtistData.js';
-import  fetchPlaylistData from '../spotifyCore/fetchPlaylistData.js';
+import fetchTrackData from '../spotifyCore/fetchTrackData.js';
+import fetchArtistData from '../spotifyCore/fetchArtistData.js';
+import fetchPlaylistData from '../spotifyCore/fetchPlaylistData.js';
 import fetchGenreData from '../spotifyCore/fetchGenreData.js';
 import fetchPodcastData from '../spotifyCore/fetchPodcastData.js';
 
@@ -12,7 +12,10 @@ router.get('/discover', async (req, res, next) => {
   try {
     const discoverData = await fetchDiscoverData();
     console.log(discoverData);
-    res.json (discoverData)
+    res.status(200).json(discoverData);
+    res.send(discoverData);
+    return discoverData 
+    
   } catch (error) {
     next(error);
   }
@@ -24,7 +27,7 @@ router.get('/artists', async (req, res, next) => {
     console.log("++++++++++++++++");
     console.log(artistData);
     console.log("++++++++++++++++");
-    res.json(artistData);
+    res.status(200).json(artistData); // 200 OK status
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -37,7 +40,7 @@ router.get('/tracks', async (req, res, next) => {
     console.log("--------------------------------");
     console.log(trackData);
     console.log("--------------------------------");
-    res.json(trackData);
+    res.status(200).json(trackData); // 200 OK status
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -50,7 +53,7 @@ router.get('/playlists', async (req, res, next) => {
     console.log("****************");
     console.log(playlistData);
     console.log("****************");
-    res.json(playlistData);
+    res.status(200).json(playlistData); // 200 OK status
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -63,7 +66,7 @@ router.get('/genre', async (req, res, next) => {
     console.log("#################");
     console.log(genreData);
     console.log("#################");
-    res.json(genreData);
+    res.status(200).json(genreData); // 200 OK status
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -73,11 +76,10 @@ router.get('/genre', async (req, res, next) => {
 router.get('/podcast', async (req, res, next) => {
   try {
     const podcastData = await fetchPodcastData();
-    res.json(podcastData);
     console.log("$$$$$$$$$$$$$$$$$$$");
     console.log(podcastData);
     console.log("$$$$$$$$$$$$$$$$$$$");
-    
+    res.status(200).json(podcastData); // 200 OK status
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

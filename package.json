@@ -1,0 +1,22 @@
+{
+  "name": "spotify_clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha --require @babel/register tests/api-tests.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/register": "^7.22.15",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.2.0"
+  }
+}

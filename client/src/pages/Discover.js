@@ -1,11 +1,13 @@
-import React from "react";
+import React , {useSelector} from "react";
 import { Error, Loader, SongCard } from "../components";
 import { genres } from '../assets/constants';
 import { useGetDiscoverQuery, useGetGenreQuery } from "../redux/services/spotifyCore";
 
+
 const Discover = () => {
   const { data, isFetching, error } = useGetDiscoverQuery();
   const genreTitle = 'Pop';
+  const { activeSong, isPlaying } = useSelector((state) => state.player);
 
   console.log('Discover Data --> ', data);
 
@@ -33,6 +35,8 @@ const Discover = () => {
               artist = {track.artists[0]}
               i={i}
               data={'pop'}
+              previewUrl={track.preview_url}
+              activeSong={track.preview_url}
             />
           </div>
         ))}
