@@ -8,7 +8,7 @@ const fetchTrackData = async () => {
       ids: '4WNcduiCmDNfmTEz7JvmLv'
     },
     headers: {
-      'X-RapidAPI-Key': 'c65a67def3mshc766b01ca33f075p16e14djsnd26fab923ee7',
+      'X-RapidAPI-Key': 'ff1059d208msh120eaa6f5814c97p1e55a2jsna7f8489ef3a4',
       'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
     }
   };

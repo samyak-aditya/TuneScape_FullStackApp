@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha --require @babel/register tests/api-tests.js"
+    "test": "mocha --timeout 10000 tests/api-tests.js"
   },
   "author": "",
   "license": "ISC",
