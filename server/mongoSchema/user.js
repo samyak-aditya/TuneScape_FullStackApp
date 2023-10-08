@@ -1,12 +1,17 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+      },
   email: {
     type: String,
     required: true,
     unique: true,
-    lowercase: true,
     trim: true,
   },
   password: {
@@ -28,22 +33,8 @@ const userSchema = new mongoose.Schema({
 });
 
 // Hash and salt the password before saving
-userSchema.pre('save', async function (next) {
-  try {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(this.password, saltRounds);
-    this.password = hashedPassword;
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
 
-// Compare hashed password with provided password
-userSchema.methods.comparePassword = async function (password) {
-  return bcrypt.compare(password, this.password);
-};
 
-const User = mongoose.model('User', userSchema);
+const musicUser = mongoose.model('musicUser', userSchema);
 
-export default User;
+export default musicUser;

@@ -4,6 +4,7 @@ import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
 import { useDispatch } from 'react-redux';
 import  MusicPlayer from './MusicPlayers/MusicPlayer.js'
+import Player from './MusicPlayers/Player';
 
 
   
@@ -34,6 +35,7 @@ const SongCard = ({ song, image, key, activeSong, artist, i, data, previewUrl })
             handlePause={handlePauseClick}
             handlePlay={handlePlayClick}
           />
+          
       <MusicPlayer songName={song.name} artistName={artist?.name} imageUrl={image} previewUrl={previewUrl} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
         </div>
         <img alt="song_img" src={image ? image.url : ''} className="w-full h-full opacity-100 rounded-lg" />

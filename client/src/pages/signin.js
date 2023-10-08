@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
+import { Sidebar } from '../components';
 
 
 function LoginForm() {
+  const navigate = useNavigate()
   // Initialize state using the useState hook
   const [formData, setFormData] = useState({
     username: '',
@@ -21,6 +23,7 @@ function LoginForm() {
     e.preventDefault();
     // Access form data from the 'formData' state object
     const { username, password } = formData;
+    
 
   try {
     // Send a POST request to your backend API
@@ -37,15 +40,22 @@ function LoginForm() {
       username: '',
       password: '',
     });
+
+    navigate('/')
   } catch (error) {
     // Handle errors, e.g., display an error message
     console.error('Error:', error);
   }
+  
 };
+
+
+
     // Perform form submission logic here
   
 
   return (
+    
     <div className="max-w-md mx-auto mt-8 p-6 border rounded-lg shadow-lg">
       <h2 className="text-2xl font-semibold mb-4">Login</h2>
       <form onSubmit={handleSubmit}>
@@ -75,6 +85,11 @@ function LoginForm() {
           <button type="submit" className="bg-blue-500 text-grey px-4 py-2 rounded-lg hover:bg-blue-600">Login</button>
         </div>
       </form>
+      {formData.username && formData.password? (
+        <Sidebar username={formData.username} />
+      ) : (
+        null
+      )}
       <p className="mt-4 text-center text-white-600">Don't have an account yet? <Link to="/signup" className='hover:text-blue-400 font-bold'>Sign up</Link></p>
     </div>
   );

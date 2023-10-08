@@ -1,20 +1,23 @@
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-import User from "../mongoSchema/user";
+import musicUser from "../mongoSchema/user.js";
 
-const User = mongoose.model('User');
+
 
 // Authentication function with password hashing
 const authenticateUser = async (req, res) => {
+    console.log('Inside authenticateUser');
+
   const { username, password } = req.body;
 
   try {
     // Find the user in MongoDB based on the provided username
-    const user = await User.findOne({ username });
+    const user = await musicUser.findOne({ username });
 
     if (!user) {
       // User not found
-      return { success: false, message: 'User not found' };
+      res.status(401).json({ success: false, message: 'User not Found' });
+      console.log('User not found');
     }
 
     // Compare the provided password with the hashed password stored in the database
@@ -22,14 +25,17 @@ const authenticateUser = async (req, res) => {
 
     if (passwordMatch) {
       // Authentication successful
-      return { success: true, message: 'Login successful' };
+      res.status(201).json({ success: true, message: 'Login successful' });
+      console.log('login success')
     } else {
       // Authentication failed
-      return { success: false, message: 'Incorrect password' };
+      res.status(406).json({ success: false, message: 'Incorrect password' });
+      console.log('Incorrect password')
     }
   } catch (error) {
     console.error(error);
-    return { success: false, message: 'Internal server error' };
+    res.status(500).json({ success: false, message: 'Internal server error' });
+    console.log('Internal server error')
   }
 };
 
@@ -41,9 +47,9 @@ const createUser = async (req, res) => {
 
   try {
     // Check if the email or username is already registered
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    const existingUser = await musicUser.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
-      return res.status(400).json({ message: 'Email or username already in use' });
+      return res.status(400).json({ success: false, message: 'Email or username already in use' });
     }
 
     // Hash the password
@@ -51,7 +57,7 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create a new user document
-    const newUser = new User({
+    const newUser = new musicUser({
       firstName,
       lastName,
       email,
@@ -61,6 +67,7 @@ const createUser = async (req, res) => {
 
     // Save the user to the database
     await newUser.save();
+    console.log(newUser);
 
     res.status(201).json({ success: true, message: 'User created successfully' });
   } catch (error) {
@@ -71,6 +78,6 @@ const createUser = async (req, res) => {
 
 
 
-module.exports = { authenticateUser, createUser};
+export { authenticateUser, createUser};
 
 

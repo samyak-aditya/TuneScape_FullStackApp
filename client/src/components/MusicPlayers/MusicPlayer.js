@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MusicSeeker from './Seekbar'; // Assuming MusicSeeker is in a separate file
+import MusicSeeker from './MusicSeeker';
 
 const MusicPlayer = ({ previewUrl, songName, artistName, imageUrl }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -7,13 +7,19 @@ const MusicPlayer = ({ previewUrl, songName, artistName, imageUrl }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  // Function to update the seeker value
+  const updateSeeker = () => {
+    setCurrentTime(audio.currentTime);
+  };
+
   const togglePlay = () => {
     if (isPlaying) {
       audio.pause();
+      setIsPlaying(false);
     } else {
       audio.play();
+      setIsPlaying(true);
     }
-    setIsPlaying(!isPlaying);
   };
 
   const handleSeek = (seekTime) => {
@@ -28,12 +34,15 @@ const MusicPlayer = ({ previewUrl, songName, artistName, imageUrl }) => {
 
     audio.addEventListener('pause', pauseHandler);
     audio.addEventListener('timeupdate', () => {
-      setCurrentTime(audio.currentTime);
       setDuration(audio.duration);
     });
 
+    // Set an interval to update the seeker every 100 milliseconds (or adjust as needed)
+    const seekerInterval = setInterval(updateSeeker, 100);
+
     return () => {
       audio.removeEventListener('pause', pauseHandler);
+      clearInterval(seekerInterval); // Clear the interval on component unmount
     };
   }, [audio]);
 
@@ -50,6 +59,7 @@ const MusicPlayer = ({ previewUrl, songName, artistName, imageUrl }) => {
         </button>
         <MusicSeeker
           currentTime={currentTime}
+          min={0}
           duration={duration}
           onSeek={handleSeek}
         />

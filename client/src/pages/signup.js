@@ -1,8 +1,9 @@
-import React, { useState} from 'react';
+import React, { useState , } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate } from 'react-router-dom';
 
 function SignupForm() {
+   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -39,6 +40,8 @@ function SignupForm() {
         firstName: '',
         lastName: '',
       });
+
+      navigate('/Login');
     } catch (error) {
       console.error('Error:', error);
     }
@@ -51,6 +54,7 @@ function SignupForm() {
         <div className="mb-4">
           <label htmlFor="firstName" className="block text-white-700">First Name:</label>
           <input
+            required
             type="text"
             name="firstName"
             id="firstName"
@@ -62,6 +66,7 @@ function SignupForm() {
         <div className="mb-4">
           <label htmlFor="lastName" className="block text-white-700">Last Name:</label>
           <input
+            required
             type="text"
             name="lastName"
             id="lastName"
@@ -73,6 +78,7 @@ function SignupForm() {
         <div className="mb-4">
           <label htmlFor="username" className="block text-white-700">Username:</label>
           <input
+            required
             type="text"
             name="username"
             id="username"
@@ -84,6 +90,7 @@ function SignupForm() {
         <div className="mb-4">
           <label htmlFor="email" className="block text-white-700">Email:</label>
           <input
+            required
             type="email"
             name="email"
             id="email"
@@ -95,6 +102,7 @@ function SignupForm() {
         <div className="mb-4">
           <label htmlFor="password" className="block text-white-700">Password:</label>
           <input
+            required
             type="password"
             name="password"
             id="password"
@@ -103,6 +111,7 @@ function SignupForm() {
             className="w-full p-2 border text-black font-bold rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
+        
         <div className="text-center">
           <button type="submit" className="bg-blue-500 text-white font-bold px-4 py-2 rounded-lg hover:bg-blue-600">Sign Up</button>
         </div>

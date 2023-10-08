@@ -1,4 +1,4 @@
-// TopPlay.js
+
 
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,58 +10,49 @@ import 'swiper/css/free-mode';
 import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
 import { useGetPlaylistQuery, useGetArtistQuery } from '../redux/services/spotifyCore';
-import Loader from './Loader';
+
 
 const Track = ({ track, isPlaying, activeTrack, handlePauseClick, handlePlayClick }) => (
   <div className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${activeTrack?.uri === track?.uri ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
-    <h3 className="font-bold text-base text-white mr-3">{track?.name}</h3>
+    <h3 className="font-bold text-base text-white mr-3"></h3>
     
     <div className="flex-1 flex flex-row justify-between items-center">
-      {track?.album?.images?.length > 0 && (
-        <img className="w-20 h-20 rounded-lg" src={track?.album?.images[0]?.url} alt={track?.name} />
+      {track?.track?.album?.images?.length > 0 && (
+        <img className="w-20 h-20 rounded-lg" src={track?.track?.album?.images[0]?.url} alt={track?.track?.name} />
       )}
       <div className="flex-1 flex flex-col justify-center mx-3">
-        <Link to={`/tracks/${track.uri}`}>
+        <Link to={`/tracks/${track?.track?.uri}`}>
           <p className="text-xl font-bold text-white">
-            {track?.name} sample
+            {track?.track?.name} - {track?.track?.artists[0]?.name || 'Unknown Artist'}
           </p>
         </Link>
         <p className="text-base text-gray-300 mt-1">
-          {track?.artists?.map((artist) => artist.name).join(', ')}
+          
         </p>
       </div>
     </div>
     <PlayPause
       isPlaying={isPlaying}
       activeTrack={activeTrack}
-      track={track}
+      track={track?.track}
       handlePause={handlePauseClick}
       handlePlay={handlePlayClick}
     />
   </div>
 );
 
-// Rest of your imports...
-
 const TopPlay = () => {
   const dispatch = useDispatch();
   const { activeTrack, isPlaying } = useSelector((state) => state.player);
   const { Adata, isFetching, error } = useGetArtistQuery();
   const { data } = useGetPlaylistQuery();
-  
-  
-  console.log("topplay----> ",data);
-
-  
-  console.log("Artists ---->",Adata);
-  
   const divRef = useRef(null);
 
   useEffect(() => {
     divRef.current.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  const tracks = data?.data.album?.tracks?.items || [];
+  const tracks = data?.data?.album?.tracks?.items || [];
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -99,9 +90,9 @@ const TopPlay = () => {
 
       <div className="w-full flex flex-col mt-8">
         <div className="flex flex-row justify-between items-center">
-          <h2 className="text-white font-bold text-2xl">Top Artists</h2>
+          <h2 className="text-white font-bold text-2xl"></h2>
           <Link to="/top-artists">
-            <p className="text-gray-300 text-base cursor-pointer">See more</p>
+            <p className="text-gray-300 text-base cursor-pointer"></p>
           </Link>
         </div>
 
@@ -130,8 +121,6 @@ const TopPlay = () => {
       </div>
     </div>
   );
-
-  
 };
 
 export default TopPlay;
