@@ -7,7 +7,7 @@
 /.gitignore.txt
 # testing
 /coverage
-
+/.babelrc
 # production
 /build
 

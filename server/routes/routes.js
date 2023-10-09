@@ -25,7 +25,7 @@ router.get('/artists', async (req, res, next) => {
     console.log("++++++++++++++++");
     console.log(artistData);
     console.log("++++++++++++++++");
-    res.status(200).json(artistData); // 200 OK status
+    res.status(200).json(artistData); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -38,7 +38,7 @@ router.get('/tracks', async (req, res, next) => {
     console.log("--------------------------------");
     console.log(trackData);
     console.log("--------------------------------");
-    res.status(200).json(trackData); // 200 OK status
+    res.status(200).json(trackData); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -51,7 +51,7 @@ router.get('/playlists', async (req, res, next) => {
     console.log("****************");
     console.log(playlistData);
     console.log("****************");
-    res.status(200).json(playlistData); // 200 OK status
+    res.status(200).json(playlistData); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -64,7 +64,7 @@ router.get('/genre', async (req, res, next) => {
     console.log("#################");
     console.log(genreData);
     console.log("#################");
-    res.status(200).json(genreData); // 200 OK status
+    res.status(200).json(genreData); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -77,7 +77,7 @@ router.get('/podcast', async (req, res, next) => {
     console.log("$$$$$$$$$$$$$$$$$$$");
     console.log(podcastData);
     console.log("$$$$$$$$$$$$$$$$$$$");
-    res.status(200).json(podcastData); // 200 OK status
+    res.status(200).json(podcastData); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

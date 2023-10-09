@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Hash and salt the password before saving
+
 
 
 const musicUser = mongoose.model('musicUser', userSchema);

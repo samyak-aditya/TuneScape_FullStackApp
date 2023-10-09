@@ -6,19 +6,16 @@ import { Sidebar } from '../components';
 
 function LoginForm() {
   const navigate = useNavigate()
-  // Initialize state using the useState hook
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
 
-  // Event handler to update form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Event handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Access form data from the 'formData' state object
@@ -32,10 +29,9 @@ function LoginForm() {
       password,
     });
 
-    // Handle the response from the backend, e.g., display a success message
     console.log('Response from server:', response.data);
 
-    // Reset the form after successful submission
+    
     setFormData({
       username: '',
       password: '',
@@ -43,7 +39,7 @@ function LoginForm() {
 
     navigate('/')
   } catch (error) {
-    // Handle errors, e.g., display an error message
+   
     console.error('Error:', error);
   }
   
@@ -51,7 +47,7 @@ function LoginForm() {
 
 
 
-    // Perform form submission logic here
+    
   
 
   return (
@@ -85,11 +81,7 @@ function LoginForm() {
           <button type="submit" className="bg-blue-500 text-grey px-4 py-2 rounded-lg hover:bg-blue-600">Login</button>
         </div>
       </form>
-      {formData.username && formData.password? (
-        <Sidebar username={formData.username} />
-      ) : (
-        null
-      )}
+      
       <p className="mt-4 text-center text-white-600">Don't have an account yet? <Link to="/signup" className='hover:text-blue-400 font-bold'>Sign up</Link></p>
     </div>
   );

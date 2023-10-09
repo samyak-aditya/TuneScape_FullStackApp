@@ -35,7 +35,7 @@ const authenticateUser = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: 'Internal server error' });
-    console.log('Internal server error')
+    
   }
 };
 
@@ -44,6 +44,9 @@ const authenticateUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   const { firstName, lastName, email, password, username } = req.body;
+  console.log(username );
+  console.log(firstName);
+  console.log(lastName);
 
   try {
     // Check if the email or username is already registered
@@ -53,7 +56,7 @@ const createUser = async (req, res) => {
     }
 
     // Hash the password
-    const saltRounds = 10;
+    const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create a new user document

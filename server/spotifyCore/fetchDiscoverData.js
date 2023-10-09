@@ -10,7 +10,7 @@ const options = {
     seed_genres: 'pop'
   },
   headers: {
-    'X-RapidAPI-Key': 'c65a67def3mshc766b01ca33f075p16e14djsnd26fab923ee7',
+    'X-RapidAPI-Key': '09d25e7fcemsh171e05e287aec71p1fd9d4jsn1cae0ef0b5eb',
     'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
   }
 };
