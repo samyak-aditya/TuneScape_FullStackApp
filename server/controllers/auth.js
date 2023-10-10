@@ -6,7 +6,7 @@ import musicUser from "../mongoSchema/user.js";
 
 // Authentication function with password hashing
 const authenticateUser = async (req, res) => {
-    console.log('Inside authenticateUser');
+    
 
   const { username, password } = req.body;
 
@@ -15,7 +15,7 @@ const authenticateUser = async (req, res) => {
     const user = await musicUser.findOne({ username });
 
     if (!user) {
-      // User not found
+      
       res.status(401).json({ success: false, message: 'User not Found' });
       console.log('User not found');
     }
@@ -24,13 +24,13 @@ const authenticateUser = async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
-      // Authentication successful
+     
       res.status(201).json({ success: true, message: 'Login successful' });
-      console.log('login success')
+      
     } else {
-      // Authentication failed
+      
       res.status(406).json({ success: false, message: 'Incorrect password' });
-      console.log('Incorrect password')
+      
     }
   } catch (error) {
     console.error(error);
