@@ -1,5 +1,3 @@
-// TopCharts.js
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Error, Loader, SongCard } from '../components';
@@ -9,7 +7,7 @@ const TopCharts = () => {
   const { data, isFetching, error } = useGetPodcastQuery();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
 
-  // Check if data is undefined or null
+  
   if (!data) {
     return <Error />;
   }

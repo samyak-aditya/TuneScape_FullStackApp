@@ -8,8 +8,8 @@ function SignupForm() {
     username: '',
     password: '',
     email: '',
-    firstName: '', // Add first name field
-    lastName: '',  // Add last name field
+    firstName: '', 
+    lastName: '',  
   });
 
   const handleInputChange = (e) => {
