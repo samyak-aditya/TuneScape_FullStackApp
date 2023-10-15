@@ -4,21 +4,19 @@ import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
 import { useDispatch } from 'react-redux';
 import  MusicPlayer from './MusicPlayers/MusicPlayer.js'
-import Player from './MusicPlayers/Player';
-
-
-  
-
 
 const SongCard = ({ song, image, key, activeSong, artist, i, data, previewUrl }) => {
+  // State to track whether the song is playing
   const [isPlaying, setIsPlaying] = React.useState(false);
 
   const dispatch = useDispatch();
 
+  // Handle the click event when the pause button is clicked
   const handlePauseClick = () => {
     dispatch(playPause(false));
   };
 
+  // Handle the click event when the play button is clicked
   const handlePlayClick = () => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
@@ -28,17 +26,17 @@ const SongCard = ({ song, image, key, activeSong, artist, i, data, previewUrl })
     <div className="flex flex-col w-[250px] p-6 mb-6 ml-6 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
       <div className="relative w-full h-56 group">
       <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.name === song.name ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
-      <PlayPause
-            isPlaying={isPlaying}
-            activeSong={activeSong}
-            song={song}
-            handlePause={handlePauseClick}
-            handlePlay={handlePlayClick}
-          />
+        <PlayPause
+          isPlaying={isPlaying}
+          activeSong={activeSong}
+          song={song}
+          handlePause={handlePauseClick}
+          handlePlay={handlePlayClick}
+        />
           
-      <MusicPlayer songName={song.name} artistName={artist?.name} imageUrl={image} previewUrl={previewUrl} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
-        </div>
-        <img alt="song_img" src={image ? image.url : ''} className="w-full h-full opacity-100 rounded-lg" />
+        <MusicPlayer songName={song.name} artistName={artist?.name} imageUrl={image} previewUrl={previewUrl} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+      </div>
+      <img alt="song_img" src={image ? image.url : ''} className="w-full h-full opacity-100 rounded-lg" />
       </div>
 
       <div className="mt-4 flex flex-col">
@@ -46,10 +44,9 @@ const SongCard = ({ song, image, key, activeSong, artist, i, data, previewUrl })
           <Link to={`/songs/`}>
             {song.name}
           </Link>
-          
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
-        {artist?.name}
+          {artist?.name}
         </p>
       </div>
     </div>

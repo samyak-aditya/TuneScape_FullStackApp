@@ -44,9 +44,14 @@ const authenticateUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   const { firstName, lastName, email, password, username } = req.body;
-  console.log(username );
-  console.log(firstName);
-  console.log(lastName);
+
+  // Regular expression to check if the email is in a valid format
+  const emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+  // Check if the email is in a valid format
+  if (!email.match(emailFormat)) {
+    return res.status(400).json({ success: false, message: 'Invalid email format' });
+  }
 
   try {
     // Check if the email or username is already registered
@@ -70,7 +75,6 @@ const createUser = async (req, res) => {
 
     // Save the user to the database
     await newUser.save();
-    console.log(newUser);
 
     res.status(201).json({ success: true, message: 'User created successfully' });
   } catch (error) {
@@ -79,8 +83,4 @@ const createUser = async (req, res) => {
   }
 };
 
-
-
-export { authenticateUser, createUser};
-
-
+export { authenticateUser, createUser };
