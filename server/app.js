@@ -22,4 +22,7 @@ const displayAlbumData = async () => {
 };
 
 // Call the displayAlbumData function to load and display the data when the page loads
-window.addEventListener('load', displayAlbumData);
+window.addEventListener('load', () => {
+  displayAlbumData().catch(console.error); // Handle any errors here
+});
+
