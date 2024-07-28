@@ -11,7 +11,7 @@ const fetchPlaylistData = async () => {
     limit: '10'
   },
     headers: {
-      'X-RapidAPI-Key': '09d25e7fcemsh171e05e287aec71p1fd9d4jsn1cae0ef0b5eb',
+      'X-RapidAPI-Key': process.env.RAPIDAPI , //'09d25e7fcemsh171e05e287aec71p1fd9d4jsn1cae0ef0b5eb'
       'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
     }
   };
